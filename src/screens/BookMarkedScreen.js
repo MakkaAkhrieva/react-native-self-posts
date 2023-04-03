@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export const BookMarkedScreen = ({}) => {
+export const BookMarkedScreen = ({navigation}) => {
   return (
     <View style={styles.center}>
       <Text>BookMarkedScreen</Text>
