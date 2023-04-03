@@ -37,7 +37,11 @@ export const AppNavigation = () => {
         <Stack.Screen
           name="Post"
           component={PostScreen}
-          options={{ title: "Post 1" }}
+          options={({ route }) => ({
+            title: `Post from ${new Date(
+              route.params.date
+            ).toLocaleDateString()}`,
+          })}
         />
         <Stack.Screen name="Create" component={CreateScreen} />
         <Stack.Screen name="BookMarkedScreen" component={BookMarkedScreen} />
