@@ -5,17 +5,33 @@ import { BookMarkedScreen } from "../screens/BookMarkedScreen";
 import { MainScreen } from "../screens/MainScreen";
 import { PostScreen } from "../screens/PostScreen";
 import { CreateScreen } from "../screens/CreateScreen";
+import { THEME } from "../theme";
+import { Platform } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
 export const AppNavigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor:
+              Platform.OS === "android" ? THEME.MAIN_COLOR : "#fff",
+          },
+          headerTintColor:
+            Platform.OS === "android" ? "#fff" : THEME.MAIN_COLOR,
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      >
         <Stack.Screen
           name="Main"
           component={MainScreen}
-          options={{ title: "Awesome app" }}
+          options={{
+            title: "Awesome app",
+          }}
         />
         <Stack.Screen name="About" component={AboutScreen} />
         <Stack.Screen
