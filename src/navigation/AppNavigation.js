@@ -1,10 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { BookMarkedScreen } from "../screens/BookMarkedScreen";
 import { THEME } from "../theme";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { HomeStackScreen } from "./HomeStackScreen";
+import { BookMarkedStackScreen } from "./BookMarkedStackScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -30,7 +29,13 @@ export const AppNavigation = () => {
         })}
       >
         <Tab.Screen name="Home" component={HomeStackScreen} />
-        <Tab.Screen name="BookMarkedScreen" component={BookMarkedScreen} />
+        <Tab.Screen
+          name="BookMarkedScreen"
+          component={BookMarkedStackScreen}
+          options={{
+            title: "My favourties",
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );

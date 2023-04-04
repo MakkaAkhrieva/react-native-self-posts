@@ -22,7 +22,7 @@ export const PostScreen = ({ route, navigation }) => {
 
   const removeHandler = () => {
     Alert.alert(
-      "Delete post поста",
+      "Delete post",
       "Are you sure you want to delete the post?",
       [
         {

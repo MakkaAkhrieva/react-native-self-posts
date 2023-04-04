@@ -1,14 +1,14 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AboutScreen } from "../screens/AboutScreen";
-import { MainScreen } from "../screens/MainScreen";
 import { THEME } from "../theme";
 import { Platform } from "react-native";
 import { PostScreen } from "../screens/PostScreen";
+import { BookMarkedScreen } from "../screens/BookMarkedScreen";
 
 const Stack = createNativeStackNavigator();
 
-export const HomeStackScreen = () => {
+export const BookMarkedStackScreen = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -24,9 +24,9 @@ export const HomeStackScreen = () => {
     >
       <Stack.Screen
         name="Main"
-        component={MainScreen}
+        component={BookMarkedScreen}
         options={{
-          title: "My blog",
+          title: "My favourites",
         }}
       />
       <Stack.Screen name="About" component={AboutScreen} />
