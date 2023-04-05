@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
-import { DATA } from "../data";
+import { useSelector } from "react-redux";
 import { Post } from "../components/Post";
 import { AppHeaderIcon } from "../components/AppHeaderIcon";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -28,10 +28,12 @@ export const BookMarkedScreen = ({ navigation }) => {
     });
   }, [navigation]);
 
+  const bookedPosts = useSelector((state) => state.post.bookedPosts);
+
   return (
     <View style={styles.wrapper}>
       <FlatList
-        data={DATA.filter((post) => post.booked)}
+        data={bookedPosts}
         keyExtractor={(post) => post.id.toString()}
         renderItem={({ item }) => <Post post={item} onOpen={openPostHandler} />}
       />
