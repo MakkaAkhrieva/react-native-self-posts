@@ -21,11 +21,10 @@ export const BookMarkedScreen = ({ navigation }) => {
           <Item
             title="Total Drawer"
             iconName="ios-menu"
-            onPress={() => console.log("Press Drawer")}
+            onPress={() => navigation.openDrawer()}
           />
         </HeaderButtons>
       ),
-/*       title: "My Favourites", */
     });
   }, [navigation]);
 

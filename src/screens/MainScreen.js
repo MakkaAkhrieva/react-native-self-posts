@@ -21,7 +21,7 @@ export const MainScreen = ({ navigation }) => {
           <Item
             title="Take photo"
             iconName="ios-camera"
-            onPress={() => console.log("Press photo")}
+            onPress={() => navigation.navigate("Create")}
           />
         </HeaderButtons>
       ),
@@ -30,7 +30,7 @@ export const MainScreen = ({ navigation }) => {
           <Item
             title="Total Drawer"
             iconName="ios-menu"
-            onPress={() => console.log("Press Drawer")}
+            onPress={() => navigation.openDrawer()}
           />
         </HeaderButtons>
       ),

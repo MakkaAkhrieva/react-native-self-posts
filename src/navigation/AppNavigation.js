@@ -1,42 +1,29 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { THEME } from "../theme";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
-import { HomeStackScreen } from "./HomeStackScreen";
-import { BookMarkedStackScreen } from "./BookMarkedStackScreen";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { PostsTabs } from "./PostsTabs";
+import { AboutStackScreen } from "./AboutStackScreen";
+import { CreateStackScreen } from "./CreateStackScreen";
+import { screenOptions } from "./screenOptions";
 
-const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 export const AppNavigation = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ color, size }) => {
-            let iconName;
-
-            if (route.name === "Home") {
-              iconName = "ios-albums";
-            } else if (route.name === "BookMarkedScreen") {
-              iconName = "ios-star";
-            }
-
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
+      <Drawer.Navigator
+        screenOptions={{
+          ...screenOptions,
           headerShown: false,
-          tabBarActiveTintColor: THEME.MAIN_COLOR,
-          tabBarInactiveTintColor: "gray",
-        })}
+          drawerStyle: {
+            backgroundColor: "#c6cbef",
+            width: 240,
+          },
+        }}
       >
-        <Tab.Screen name="Home" component={HomeStackScreen} />
-        <Tab.Screen
-          name="BookMarkedScreen"
-          component={BookMarkedStackScreen}
-          options={{
-            title: "My favourties",
-          }}
-        />
-      </Tab.Navigator>
+        <Drawer.Screen name="PostsTabs" component={PostsTabs} />
+        <Drawer.Screen name="About" component={AboutStackScreen} />
+        <Drawer.Screen name="Create" component={CreateStackScreen} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 };
