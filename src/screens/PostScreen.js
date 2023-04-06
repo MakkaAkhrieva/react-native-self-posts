@@ -12,7 +12,7 @@ import { THEME } from "../theme";
 import { AppHeaderIcon } from "../components/AppHeaderIcon";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleBooked } from "../store/acions/post";
+import { removePost, toggleBooked } from "../store/acions/post";
 
 export const PostScreen = ({ route, navigation }) => {
   const { postId } = route.params;
@@ -21,7 +21,6 @@ export const PostScreen = ({ route, navigation }) => {
     state.post.allPosts.find((p) => p.id === postId)
   );
 
-
   const booked = useSelector((state) =>
     state.post.bookedPosts.some((post) => post.id === postId)
   );
@@ -29,6 +28,11 @@ export const PostScreen = ({ route, navigation }) => {
   const iconName = booked ? "ios-star" : "ios-star-outline";
 
   const dispatch = useDispatch();
+
+  const removePostHandler = () => {
+    navigation.navigate("Main");
+    dispatch(removePost(postId));
+  };
 
   const removeHandler = () => {
     Alert.alert(
@@ -39,7 +43,11 @@ export const PostScreen = ({ route, navigation }) => {
           text: "Cancel",
           style: "cancel",
         },
-        { text: "Delete", style: "destructive", onPress: () => {} },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: removePostHandler,
+        },
       ],
       { cancelable: false }
     );
