@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useEffect } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, Text } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Post } from "../components/Post";
 import { AppHeaderIcon } from "../components/AppHeaderIcon";
@@ -45,6 +45,14 @@ export const MainScreen = ({ navigation }) => {
     });
   }, [navigation]);
 
+  if (allPosts.length === 0) {
+    return (
+      <View style={styles.wrapper}>
+        <Text style={styles.noItems}> There are no any posts</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.wrapper}>
       <FlatList
@@ -59,5 +67,11 @@ export const MainScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   wrapper: {
     padding: 10,
+  },
+  noItems: {
+    fontFamily: "open-regular",
+    textAlign: "center",
+    marginVertical: 10,
+    fontSize: 18,
   },
 });

@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, Image, Button, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-export const PhotoPicker = ({ image, setImage, navigation }) => {
+export const PhotoPicker = ({ image, setImage }) => {
   const takePhoto = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -17,7 +17,7 @@ export const PhotoPicker = ({ image, setImage, navigation }) => {
       Alert.alert("Error", "Try once more", [
         {
           text: "Cancel",
-          onPress: () => navigation.navigate("Main"),
+          onPress: () => console.log("error"),
           style: "cancel",
         },
       ]);

@@ -12,22 +12,25 @@ import { THEME } from "../theme";
 import { AppHeaderIcon } from "../components/AppHeaderIcon";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useDispatch, useSelector } from "react-redux";
-import { removePost, toggleBooked } from "../store/acions/post";
+import { removePost, toogleBooked } from "../store/acions/post";
 
 export const PostScreen = ({ route, navigation }) => {
+  const dispatch = useDispatch();
   const { postId } = route.params;
 
   const post = useSelector((state) =>
     state.post.allPosts.find((p) => p.id === postId)
   );
 
+  useEffect(() => {
+    console.log("post", post);
+  });
+
   const booked = useSelector((state) =>
     state.post.bookedPosts.some((post) => post.id === postId)
   );
 
   const iconName = booked ? "ios-star" : "ios-star-outline";
-
-  const dispatch = useDispatch();
 
   const removePostHandler = () => {
     navigation.navigate("Main");
@@ -58,8 +61,9 @@ export const PostScreen = ({ route, navigation }) => {
   }, [booked]);
 
   const onFavouriteToggle = useCallback(() => {
-    dispatch(toggleBooked(postId));
-  }, [dispatch, postId]);
+    console.log("toggle");
+    dispatch(toogleBooked(post));
+  }, [dispatch, post]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
