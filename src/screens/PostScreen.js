@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useCallback, useEffect, useLayoutEffect } from "react";
 import {
   View,
   Text,
@@ -8,17 +8,27 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
-import { DATA } from "../data";
 import { THEME } from "../theme";
 import { AppHeaderIcon } from "../components/AppHeaderIcon";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleBooked } from "../store/acions/post";
 
 export const PostScreen = ({ route, navigation }) => {
-  const { postId, booked } = route.params;
+  const { postId } = route.params;
 
-  const post = DATA.find((p) => p.id === postId);
+  const post = useSelector((state) =>
+    state.post.allPosts.find((p) => p.id === postId)
+  );
+
+
+  const booked = useSelector((state) =>
+    state.post.bookedPosts.some((post) => post.id === postId)
+  );
 
   const iconName = booked ? "ios-star" : "ios-star-outline";
+
+  const dispatch = useDispatch();
 
   const removeHandler = () => {
     Alert.alert(
@@ -35,6 +45,14 @@ export const PostScreen = ({ route, navigation }) => {
     );
   };
 
+  useEffect(() => {
+    navigation.setParams({ booked: booked });
+  }, [booked]);
+
+  const onFavouriteToggle = useCallback(() => {
+    dispatch(toggleBooked(postId));
+  }, [dispatch, postId]);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -42,12 +60,12 @@ export const PostScreen = ({ route, navigation }) => {
           <Item
             title="Take photo"
             iconName={iconName}
-            onPress={() => console.log("Press photo")}
+            onPress={onFavouriteToggle}
           />
         </HeaderButtons>
       ),
     });
-  }, [navigation]);
+  }, [navigation, booked]);
 
   return (
     <ScrollView>
